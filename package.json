@@ -23,7 +23,7 @@
   "contributors": [
     "David Oti <hello@davidoti.com>"
   ],
-  "license": "Apache-2.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/boostgpt/boostgpt-node/issues"
   },
