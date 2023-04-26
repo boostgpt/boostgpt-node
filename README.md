@@ -533,4 +533,4 @@ Always check for presence of `err`.  If `err` is not null, then the response mig
 
 ### License
 
-This package is licensed under the [Apache license](https://github.com/davmixcool/boostgpt/blob/master/LICENSE).
+This package is licensed under the [MIT](https://github.com/boostgpt/boostgpt-node/blob/master/LICENSE).
