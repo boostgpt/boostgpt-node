@@ -1,11 +1,22 @@
-# BoostGPT
+<div align="center">
+    <img src="https://boostgpt.co/hero-demo.png" alt="BoostGPT"/>
+    <br>
+    <h1>BoostGPT</h1>
+    <p>Develop intelligent chatbots to enhance your business.</p>
+    <a href="https://www.npmjs.com/package/boostgpt"><img src="https://img.shields.io/npm/v/boostgpt" alt="NPM Version"></a>
+    <a href="https://discord.gg/FPTmDNjA"><img src="https://img.shields.io/discord/1100801013121822770?color=%bbccff&label=Discord" alt="Discord"></a>
+    <a href="https://docs.boostgpt.co"><img src="https://img.shields.io/badge/Docs-BoostGPT" alt="Documentation"></a>
+    <br>
+    <br>
+</div>
 
-BoostGPT client library for nodejs. 
+
+## Prerequisite
 
 [Requires an API Key for BoostGPT which can be found here.](https://app.boostgpt.co/account/api-keys)
 
 
-## Install
+## Installation
 
 `npm install boostgpt`
 
