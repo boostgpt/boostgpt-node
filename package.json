@@ -1,0 +1,34 @@
+{
+  "name": "boostgpt",
+  "version": "1.0.0",
+  "description": "BoostGPT client library for nodejs. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boostgpt/boostgpt-node.git"
+  },
+  "keywords": [
+    "vector",
+    "search",
+    "gpt",
+    "chatgpt",
+    "chatgpt",
+    "boostgpt",
+    "agi",
+    "ai"
+  ],
+  "contributors": [
+    "David Oti <hello@davidoti.com>"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/boostgpt/boostgpt-node/issues"
+  },
+  "homepage": "https://github.com/boostgpt/boostgpt-node#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.9"
+  }
+}
