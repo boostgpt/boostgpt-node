@@ -495,7 +495,7 @@ let payload = {
     instruction: "" //Optional. An instruction to tell the AI how to reply. Defaults to the bot instruction.
 }
 
-let chat = await boostgpt.chatBot(payload);
+let chatbot = await boostgpt.chatBot(payload);
 
 if (chatbot.err) {
    //Handle errors here.
@@ -540,6 +540,11 @@ All methods must be awaited, and return a BoostGPTResponse object - which only h
 
 Always check for presence of `err`.  If `err` is not null, then the response might not be valid.
 
+
+
+## Questions?
+
+[Join our Discord server.](https://discord.gg/FPTmDNjA)
 
 
 ### License
