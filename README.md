@@ -479,7 +479,7 @@ Response:
 
 ## Engage a chatbot
 
-Here is an example that shows how you can engage a chatbot that has been trained with your data. You will need an [Openai API key](https://platform.openai.com/account/api-keys) to be able to engage with a chatbot. 
+Here is an example that shows how you can engage a chatbot that has been trained with your data. You will need an [Openai API key](https://platform.openai.com/account/api-keys) to be able to chat with a bot. 
 
 
 ```javascript
