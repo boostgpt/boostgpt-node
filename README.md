@@ -479,13 +479,14 @@ Response:
 
 ## Engage a chatbot
 
-Here is an example that shows how you can engage a chatbot that has been trained with your data
+Here is an example that shows how you can engage a chatbot that has been trained with your data. You will need an [Openai API key](https://platform.openai.com/account/api-keys) to be able to engage with a chatbot. 
 
 
 ```javascript
 
 let payload = {
     bot_id: "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",//The collection to chat
+    openai_key: "YOUR-OPENAI-APIKEY",
     model: "gpt-3.5-turbo", //The model to use for the chat response. Defaults to the bot model.
     message: "How can I add a subscribe button to my twitter profile?", //The chat message
     source_ids: ["c26b16b4-d394-11ed-b5a3-33d8a09a24e3"], //The training source id's you want the AI's knowledge to be limited to.
