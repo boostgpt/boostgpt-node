@@ -479,7 +479,7 @@ Response:
 
 ## Engage a chatbot
 
-Here is an example that shows how you can engage a chatbot that has been trained with your data. You will need an [Openai API key](https://platform.openai.com/account/api-keys) to be able to chat with a bot. 
+Here is an example that shows how you can engage a chatbot that has been trained with your data. You will need an [Openai API key](https://platform.openai.com/account/api-keys) to chat with a bot. 
 
 
 ```javascript
@@ -545,7 +545,7 @@ Always check for presence of `err`.  If `err` is not null, then the response mig
 
 ## Questions?
 
-[Join our Discord server.](https://discord.gg/FPTmDNjA)
+[Join our Discord server.](https://discord.gg/KGhz5SnyXM)
 
 
 ### License

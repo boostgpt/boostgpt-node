@@ -1,6 +1,6 @@
 {
   "name": "boostgpt",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "BoostGPT client library for nodejs. ",
   "main": "index.js",
   "scripts": {
