@@ -15,10 +15,11 @@ const BoostGPT = function({ project_id = null, key = null } = {}) {
     };
 }
 
-BoostGPT.prototype.createBot = async function({ model = null, instruction = null, status = null } = {}) {
+BoostGPT.prototype.createBot = async function({ model = null, instruction = null, max_reply_tokens = null, status = null } = {}) {
     let url = `${this.host}bot/create`;
     this.body.model = model;
     this.body.instruction = instruction;
+    this.body.max_reply_tokens = max_reply_tokens;
     this.body.status = status;
 
     return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'POST'));
@@ -34,11 +35,12 @@ BoostGPT.prototype.fetchBots = async function({ page = 1, per_page = 10 }) {
     return new BoostGPTResponse(await url_request(url, null, this.apiKey));
 }
 
-BoostGPT.prototype.updateBot = async function({ bot_id = null, model = null, instruction = null, status = null } = {}) {
+BoostGPT.prototype.updateBot = async function({ bot_id = null, model = null, instruction = null, max_reply_tokens = null, status = null } = {}) {
     let url = `${this.host}bot/update`;
     this.body.bot_id = bot_id;
     this.body.model = model;
     this.body.instruction = instruction;
+    this.body.max_reply_tokens = max_reply_tokens;
     this.body.status = status;
 
     return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'PUT'));
@@ -55,10 +57,11 @@ BoostGPT.prototype.deleteBot = async function(id) {
     return new BoostGPTResponse(await body_request(url, null, this.apiKey, 'DELETE'));
 }
 
-BoostGPT.prototype.chatBot = async function({ bot_id = null, model = null, instruction = null, source_ids = [], message = '', tags = [], top = null, max_reply_tokens = null } = {}) {
+BoostGPT.prototype.chat = async function({ bot_id = null, model = null, openai_key = null, instruction = null, source_ids = [], message = '', tags = [], top = null, max_reply_tokens = null } = {}) {
     let url = `${this.host}bot/chat`;
     this.body.bot_id = bot_id;
     this.body.model = model;
+    this.body.openai_key = openai_key;
     this.body.instruction = instruction;
     this.body.source_ids = source_ids;
     this.body.message = message;
@@ -69,13 +72,12 @@ BoostGPT.prototype.chatBot = async function({ bot_id = null, model = null, instr
     return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'POST'));
 }
 
-BoostGPT.prototype.startTraining = async function({ bot_id = null, tags = [], type = null, source = null, maxCrawledLinks = null } = {}) {
+BoostGPT.prototype.startTraining = async function({ bot_id = null, tags = [], type = null, source = null } = {}) {
     let url = `${this.host}bot/source/create`;
     this.body.bot_id = bot_id;
     this.body.tags = tags;
     this.body.type = type;
     this.body.source = source;
-    this.body.maxCrawledLinks = maxCrawledLinks;
 
     return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'POST'));
 }
@@ -90,14 +92,13 @@ BoostGPT.prototype.fetchTrainings = async function({ bot_id = null, page = 1, pe
     return new BoostGPTResponse(await url_request(url, null, this.apiKey));
 }
 
-BoostGPT.prototype.updateTraining = async function({ source_id = null, bot_id = null, tags = [], type = null, source = null, maxCrawledLinks = null } = {}) {
+BoostGPT.prototype.updateTraining = async function({ source_id = null, bot_id = null, tags = [], type = null, source = null } = {}) {
     let url = `${this.host}bot/source/update`;
     this.body.source_id = source_id;
     this.body.bot_id = bot_id;
     this.body.tags = tags;
     this.body.type = type;
     this.body.source = source;
-    this.body.maxCrawledLinks = maxCrawledLinks;
 
     return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'PUT'));
 }

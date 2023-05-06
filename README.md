@@ -494,7 +494,7 @@ let payload = {
     instruction: "" //Optional. An instruction to tell the AI how to reply. Defaults to the bot instruction.
 }
 
-let chatbot = await boostgpt.chatBot(payload);
+let chatbot = await boostgpt.chat(payload);
 
 if (chatbot.err) {
    //Handle errors here.
