@@ -491,7 +491,8 @@ let payload = {
     tags: ["twitter"], //Use tags to get the segment of the training data you want the AI's knowledge to be limited to.
     top: 10, //Optional. The weight of training data used to form a context. Defaults to 10. Recommended settings between : 10 - 15 give better response from the AI.
     max_reply_tokens: 300, // Optional. The maximum number of tokens allowed for the chat response. By default, the number of tokens the model can return will be (300 - tokens).
-    instruction: "" //Optional. An instruction to tell the AI how to reply. Defaults to the bot instruction.
+    instruction: "", //Optional. An instruction to tell the AI how to reply. Defaults to the bot instruction.
+    chat_id: "example-chat-id" //Optional. Specify a chat id if you want to engage the AI in a conversational manner. Chat id should be unique per chat thread with the AI.
 }
 
 let chatbot = await boostgpt.chat(payload);
