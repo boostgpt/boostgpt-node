@@ -247,7 +247,7 @@ let payload = {
     bot_id: "fa155610-e2a2-11ed-8d7e-128759b35991"
     tags: [], //Use tags to segment your training data
     type: 'text', //Require any of : text, file, webpage, website
-    source: 'My quest for a good SEO meta tag implementation in Laravel drove me tech mad to write a package that will add standard SEO meta tags to my application with ease. However, I had to go the extra mile to research important meta tags and the role they play when it comes to SEO and how they can be used to improve SEO, So literally I had to do most of the heavy lifting. Lets quickly take a detour to what meta tags are and how they can improve SEO before we unveil the package. Why do meta tags matter? As previously mentioned, meta tags offer more details about your site to search engines and website visitors who encounter your site in the SERP. They can be optimized to highlight the most important elements of your content and make your website stand out in search results. Search engines increasingly value good user experience, and that includes making sure that your site satisfies a user’s query as best as it possibly can. Meta tags help with this by making sure that the information searchers need to know about your site is displayed upfront in a concise and useful fashion.',//Require your text content or an accessible link to your file, webpage, or website
+    source: 'YOUR SOURCE DATA',//Require your text content or an accessible link to your file, webpage, or website
 }
 let chatbot = await boostgpt.startTraining(payload);
 
@@ -289,7 +289,7 @@ let payload = {
     source_id: "1f2fbbd2-e436-11ed-ad91-a2ce1f33a089",
     tags: ["twitter","revue"], //Use tags to segment your training data
     type: 'text', //Require any of : text, file, webpage, website
-    source: `How to add a subscribe button to your Twitter Profile to grow your subscribers. Update: This article is now obsolete due to Revue shutting down its service. Please ignore this and move on to more interesting topics. You have probably seen a subscribe button on some Twitter profiles or wondered how they were implemented. If yes, then you’re in the right place because I will be sharing some info on how you can achieve that to convert your Twitter audience to your subscribers straight from your Tweets and Twitter profile. Introduction: We are going to be using a platform called Revue to set up this flow. Revue is a platform by Twitter. Revue makes it easy for writers and publishers to send editorial newsletters — and get paid. It has a powerful new way to allow your Twitter followers to subscribe to your newsletter directly from your Tweets and Twitter profile. Below are 3 steps that you can follow to set up your own subscribe button on your Twitter profile. Step 1: Create a Revue Account. Go to https://getrevue.co and create an account using your Twitter or email address. Step 2: Go to Account Settings. After creating and verifying your account, the next thing to do will be to configure your account to fit the newsletter digest you want your subscribers to see. Head over to Account Settings to begin this configuration. Step 3: Configure your Account. Once in Account settings, You will notice that there are 6 tabs with different titles to help you configure your account well. Start by configuring the settings in the first tab which is Profile. You will be tweaking some basic things here like your: Newsletter Profile Image, Title, Author, Issue Description, Welcome Text, and so on. Head over to the next tab once you’re done which is the Settings tab. Here, you will be able to hide your subscriber's count and also set up your custom domain. The instructions beside each field are clear enough to help you comprehend what to do. Now, The Design tab has some customization options like; Themes, Email header type, primary color, and secondary color to help tailor your digest page. The next tab will be Integrations which contains a variety of third-party services to help improve how you make use of Revue. This is where you will be able to enable the feature which lets your followers subscribe to your newsletter from your Twitter profile. You have to connect your Twitter account here for you to see the settings to enable it. Click on the Settings button next to the disconnect button on the Twitter integration card after connecting your account. Next tick the option where it says: ENABLE NEWSLETTER SUBSCRIBE and save. That’s it, you now have a subscribe button feature showing on your Twitter profile page. Head over to your Twitter profile to make sure your button displays properly.Conclusion: I am happy I could help you enable this feature. Feel free to reach out to me if you have any questions. David Oti is the publisher of this blog.`,//Require your text content or an accessible link to your file, webpage, or website
+    source: `YOUR SOURCE DATA`,//Require your text content or an accessible link to your file, webpage, or website
 }
 let chatbot = await boostgpt.updateTraining(payload);
 
@@ -474,7 +474,6 @@ Response:
 
 
 
-
 ## Engage a chatbot
 
 Here is an example that shows how you can engage a chatbot that has been trained with your data. You will need an [Openai API key](https://platform.openai.com/account/api-keys) to chat with a bot. 
@@ -492,7 +491,8 @@ let payload = {
     top: 10, //Optional. The weight of training data used to form a context. Defaults to 10. Recommended settings between : 10 - 15 give better response from the AI.
     max_reply_tokens: 300, // Optional. The maximum number of tokens allowed for the chat response. By default, the number of tokens the model can return will be (300 - tokens).
     instruction: "", //Optional. An instruction to tell the AI how to reply. Defaults to the bot instruction.
-    chat_id: "example-chat-id" //Optional. Specify a chat id if you want to engage the AI in a conversational manner. Chat id should be unique per chat thread with the AI.
+    chat_id: "example-chat-id", //Optional. Specify a chat id if you want to engage the AI in a conversational manner. Chat id should be unique per chat thread with the AI.
+    stream: false
 }
 
 let chatbot = await boostgpt.chat(payload);
@@ -512,7 +512,7 @@ Response:
 
 {
     "chat": {
-        "reply": "To add a subscribe button to your Twitter profile, you can follow these three steps:\n\n1. Connect your Twitter account to Revue by going to https://www.getrevue.co/app/integrations/twitter and clicking on \"Connect Twitter Account\".\n2. Enable the newsletter subscribe feature by clicking on the Settings button next to the disconnect button on the Twitter integration card after connecting your account. Next tick the option where it says: ENABLE NEWSLETTER SUBSCRIBE and save.\n3. Head over to your Twitter profile to make sure your button displays properly. That’s it, you now have a subscribe button feature showing on your Twitter profile page.\n\nBy following these steps, you will be able to enable the feature which lets your followers subscribe to your newsletter from your Twitter profile.",
+        "reply": "THE BOT REPLY.",
         "meta": [
             {
                 "source_id": "832146d2-e43c-11ed-ad91-a2ce1f33a089",
@@ -531,6 +531,60 @@ Response:
 }
 
 ```
+
+
+
+## Delete a chatbot chat history
+
+Here is an example that deletes a chatbot chat history in your BoostGPT account
+
+
+```javascript
+
+let payload = {
+    bot_id: "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",
+    chat_id: "example-chat-id",
+};
+
+let chatbot = await boostgpt.deleteChat(payload);
+
+if (chatbot.err) {
+   //Handle errors here.
+}else{
+   console.log(chatbot.response);
+}
+
+```
+
+
+Response:
+
+```json
+    {
+        "conversation": [
+            {
+                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+                "content": "hi",
+                "role": "user",
+                "tokens": 1
+            },
+            {
+                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+                "content": "Hello! How can I assist you today?",
+                "role": "system",
+                "tokens": 7
+            },
+            {
+                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+                "content": "I am thinking of writing a blog post around boostgpt, something that will bring traffic",
+                "role": "user",
+                "tokens": 15
+            },
+        ]
+    }
+```
+
+
 
 
 
