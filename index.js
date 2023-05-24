@@ -15,11 +15,14 @@ const BoostGPT = function({ project_id = null, key = null } = {}) {
     };
 }
 
-BoostGPT.prototype.createBot = async function({ model = null, instruction = null, max_reply_tokens = null, status = null } = {}) {
+BoostGPT.prototype.createBot = async function({ name = null, model = null, instruction = null, max_reply_tokens = null, top = null, welcome_message = null, status = null } = {}) {
     let url = `${this.host}bot/create`;
+    this.body.name = name;
     this.body.model = model;
     this.body.instruction = instruction;
     this.body.max_reply_tokens = max_reply_tokens;
+    this.body.top = top;
+    this.body.welcome_message = welcome_message;
     this.body.status = status;
 
     return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'POST'));
@@ -35,12 +38,15 @@ BoostGPT.prototype.fetchBots = async function({ page = 1, per_page = 10 }) {
     return new BoostGPTResponse(await url_request(url, null, this.apiKey));
 }
 
-BoostGPT.prototype.updateBot = async function({ bot_id = null, model = null, instruction = null, max_reply_tokens = null, status = null } = {}) {
+BoostGPT.prototype.updateBot = async function({ bot_id = null, name = null, model = null, instruction = null, max_reply_tokens = null, top = null, welcome_message = null, status = null } = {}) {
     let url = `${this.host}bot/update`;
     this.body.bot_id = bot_id;
+    this.body.name = name;
     this.body.model = model;
     this.body.instruction = instruction;
     this.body.max_reply_tokens = max_reply_tokens;
+    this.body.top = top;
+    this.body.welcome_message = welcome_message;
     this.body.status = status;
 
     return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'PUT'));
@@ -72,6 +78,16 @@ BoostGPT.prototype.chat = async function({ bot_id = null, model = null, openai_k
     this.body.stream = stream;
 
     return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'POST'));
+}
+
+BoostGPT.prototype.fetchChat = async function({ bot_id = null, chat_id = null, page = 1, per_page = 10 } = {}) {
+    let url = `${this.host}bot/chat/read?project_id=${this.body.project_id}&bot_id=${bot_id}&chat_id=${chat_id}&page=${page}&per_page=${per_page}`;
+    return new BoostGPTResponse(await url_request(url, null, this.apiKey));
+}
+
+BoostGPT.prototype.fetchChats = async function({ bot_id = null, page = 1, per_page = 10 }) {
+    let url = `${this.host}bot/chat/readall?project_id=${this.body.project_id}&bot_id=${bot_id}&page=${page}&per_page=${per_page}`;
+    return new BoostGPTResponse(await url_request(url, null, this.apiKey));
 }
 
 BoostGPT.prototype.deleteChat = async function({ chat_id = null, bot_id = null } = {}) {

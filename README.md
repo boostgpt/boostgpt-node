@@ -44,6 +44,7 @@ Here is an example that creates a chatbot in your BoostGPT project
 ```javascript
 
 let payload = {
+    name: 'Example name',
     model: "gpt-3.5-turbo", //Require any of : text-davinci-002, text-davinci-003, gpt-3.5-turbo, gpt-3.5-turbo-0301, gpt-4
     instruction: `I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.`,//Optional. An instreuction to prompt the chatbot on how to respond
     status: 1 //Require any string of [ "1" or "0"]. Status 1 = online, Status 0 = offline
@@ -65,6 +66,50 @@ Response:
     {
         "bot": {
             "uuid": "fa155610-e2a2-11ed-8d7e-128759b35991",
+            "name": "Example name",
+            "model": "gpt-3.5-turbo",
+            "max_reply_tokens": "300",
+            "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
+            "status": 1,
+            "updated_at": "2023-04-24T13:21:52.000Z"
+        }
+    }
+
+```
+
+
+## Update a chatbot
+
+Here is an example that updates a chatbot in your BoostGPT project
+
+
+```javascript
+
+let payload = {
+    bot_id: "fa155610-e2a2-11ed-8d7e-128759b35991",
+    name: 'Example name',
+    model: "gpt-3.5-turbo", //Require any of : text-davinci-002, text-davinci-003, gpt-3.5-turbo, gpt-3.5-turbo-0301, gpt-4
+    instruction: `I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.`,//Optional. An instreuction to prompt the chatbot on how to respond
+    status: 1 //Require any string of [ "1" or "0"]. Status 1 = online, Status 0 = offline
+}
+let chatbot = await boostgpt.updateBot(payload);
+
+if (chatbot.err) {
+   //Handle errors here.
+}else{
+   console.log(chatbot.response);
+}
+
+```
+
+Response:
+
+
+```json
+    {
+        "bot": {
+            "uuid": "fa155610-e2a2-11ed-8d7e-128759b35991",
+            "name": "Example name",
             "model": "gpt-3.5-turbo",
             "max_reply_tokens": "300",
             "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
@@ -531,6 +576,108 @@ Response:
 }
 
 ```
+
+
+
+## Fetch a chatbot chat history
+
+Here is an example that fetches a chatbot chat history in your BoostGPT project. The example below fetches 10 items per page.
+
+
+```javascript
+
+let payload = {
+    bot_id: "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",
+    chat_id: "2f2fbca2-e436-11ed-ad91-a2ce1f33a089",
+    page: 1,
+    per_page: 10
+};
+let chatbot = await boostgpt.fetchChat(payload);
+
+if (chatbot.err) {
+   //Handle errors here.
+}else{
+   console.log(chatbot.response);
+}
+
+```
+
+Response:
+
+```json
+    {
+        "total": 3,
+        "conversation": [
+            {
+                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+                "content": "hi",
+                "role": "user",
+                "tokens": 1
+            },
+            {
+                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+                "content": "Hello! How can I assist you today?",
+                "role": "system",
+                "tokens": 7
+            },
+            {
+                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+                "content": "I am thinking of writing a blog post around boostgpt, something that will bring traffic",
+                "role": "user",
+                "tokens": 15
+            },
+        ]
+    }
+```
+
+
+## Fetch a chatbot chats
+
+Here is an example that fetches a chatbot chats in your BoostGPT project. The example below fetches 10 items per page.
+
+
+```javascript
+
+let payload = {
+    bot_id: "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",
+    page: 1,
+    per_page: 10
+}
+let chatbots = await boostgpt.fetchChats(payload);
+
+if (chatbot.err) {
+   //Handle errors here.
+}else{
+   console.log(chatbot.response);
+}
+
+```
+
+Response:
+
+```json
+{
+    "total": 3,
+    "chats": [
+        {
+            "chat_id": "50388f6b-9bce-4bb7-aef6-bafc151544df",
+            "messages": 12,
+            "latest": "2023-05-21T07:45:08.000Z"
+        },
+        {
+            "chat_id": "test-id",
+            "messages": 6,
+            "latest": "2023-05-20T22:30:27.000Z"
+        },
+        {
+            "chat_id": "1784709e-3ff9-432d-8683-08ec427a8b5b",
+            "messages": 2,
+            "latest": "2023-05-18T15:42:03.000Z"
+        }
+    ]
+}
+```
+
 
 
 
