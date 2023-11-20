@@ -1,8 +1,6 @@
 <div align="center">
-    <img src="https://boostgpt.co/hero-demo.png" alt="BoostGPT"/>
-    <br>
     <h1>BoostGPT</h1>
-    <p>Develop intelligent chatbots to enhance your business.</p>
+    <p>Empower Your Projects with a Seamless AI Chatbot API Integration.</p>
     <a href="https://www.npmjs.com/package/boostgpt"><img src="https://img.shields.io/npm/v/boostgpt" alt="NPM Version"></a>
     <a href="https://discord.gg/FPTmDNjA"><img src="https://img.shields.io/discord/1100801013121822770?color=%bbccff&label=Discord" alt="Discord"></a>
     <a href="https://docs.boostgpt.co"><img src="https://img.shields.io/badge/Docs-BoostGPT" alt="Documentation"></a>
@@ -10,6 +8,11 @@
     <br>
 </div>
 
+BBBBB    OOOOO   OOOOO   SSSSS  TTTTTTTT  GGGGG   PPPPPP  TTTTTTTT
+BB   B  OO   OO OO   OO SS         TT    GG   GG  PP   PP    TT    
+BBBBB   OO   OO OO   OO  SSSSS     TT    GG       PPPPPP     TT    
+BB   B  OO   OO OO   OO      SS    TT    GG   GGG PP         TT   
+BBBBB    OOOO0   OOOO0   SSSSS     TT     GGGGGG  PP         TT    
 
 ## Prerequisite
 
