@@ -8,11 +8,6 @@
     <br>
 </div>
 
-BBBBB    OOOOO   OOOOO   SSSSS  TTTTTTTT  GGGGG   PPPPPP  TTTTTTTT
-BB   B  OO   OO OO   OO SS         TT    GG   GG  PP   PP    TT    
-BBBBB   OO   OO OO   OO  SSSSS     TT    GG       PPPPPP     TT    
-BB   B  OO   OO OO   OO      SS    TT    GG   GGG PP         TT   
-BBBBB    OOOO0   OOOO0   SSSSS     TT     GGGGGG  PP         TT    
 
 ## Prerequisite
 
