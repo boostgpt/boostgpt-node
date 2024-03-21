@@ -43,7 +43,7 @@ Here is an example that creates a chatbot in your BoostGPT project
 
 let payload = {
     name: 'Example name',
-    model: "gpt-3.5-turbo", //Require any of : text-davinci-002, text-davinci-003, gpt-3.5-turbo, gpt-3.5-turbo-0301, gpt-4
+    model: "gpt-3.5-turbo", //Require any of : gpt-3.5-turbo, gpt-3.5-turbo-0301, gpt-3.5-turbo-16k, gpt-3.5-turbo-1106, gpt-4-32k, gpt-4-0613, gpt-4-32k-0613, gpt-4
     instruction: `I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.`,//Optional. An instreuction to prompt the chatbot on how to respond
     status: 1 //Require any string of [ "1" or "0"]. Status 1 = online, Status 0 = offline
 }
@@ -86,7 +86,7 @@ Here is an example that updates a chatbot in your BoostGPT project
 let payload = {
     bot_id: "fa155610-e2a2-11ed-8d7e-128759b35991",
     name: 'Example name',
-    model: "gpt-3.5-turbo", //Require any of : text-davinci-002, text-davinci-003, gpt-3.5-turbo, gpt-3.5-turbo-0301, gpt-4
+    model: "gpt-3.5-turbo", //Require any of : gpt-3.5-turbo, gpt-3.5-turbo-0301, gpt-3.5-turbo-16k, gpt-3.5-turbo-1106, gpt-4-32k, gpt-4-0613, gpt-4-32k-0613, gpt-4
     instruction: `I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.`,//Optional. An instreuction to prompt the chatbot on how to respond
     status: 1 //Require any string of [ "1" or "0"]. Status 1 = online, Status 0 = offline
 }
@@ -143,7 +143,7 @@ Response:
     {
         "bot": {
             "uuid": "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",
-            "model": "text-davinci-002",
+            "model": "gpt-3.5-turbo", 
             "max_reply_tokens": "300",
             "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
             "status": 1,
@@ -192,7 +192,7 @@ Response:
         },
         {
             "uuid": "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",
-            "model": "text-davinci-003",
+            "model": "gpt-3.5-turbo",
             "max_reply_tokens": "300",
             "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
             "status": 1,
@@ -525,7 +525,7 @@ Here is an example that shows how you can engage a chatbot that has been trained
 ```javascript
 
 let payload = {
-    bot_id: "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",//The collection to chat
+    bot_id: "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",//The bot to chat
     openai_key: "YOUR-OPENAI-APIKEY",
     model: "gpt-3.5-turbo", //The model to use for the chat response. Defaults to the bot model.
     message: "How can I add a subscribe button to my twitter profile?", //The chat message
@@ -729,6 +729,72 @@ Response:
     }
 ```
 
+
+
+## Search a chatbot
+
+Here is an example that shows how you can search a chatbot that has been trained with your data.
+
+
+```javascript
+
+let payload = {
+    bot_id: "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",//The bot to search
+    keywords: "How can I add a subscribe button to my twitter profile?", //The search keywords
+    source_ids: ["c26b16b4-d394-11ed-b5a3-33d8a09a24e3"], //The training source id's you want the AI's knowledge to be limited to.
+    tags: ["twitter"], //Use tags to get the segment of the training data you want the AI's knowledge to be limited to.
+    top: 10, //Optional. The weight of training data used to form a context. Defaults to 10. Recommended settings between : 10 - 15 give better response from the AI.
+}
+
+let chatbot = await boostgpt.search(payload);
+
+if (chatbot.err) {
+   //Handle errors here.
+}else{
+   console.log(chatbot.response);
+}
+
+```
+
+
+Response:
+
+```json
+
+{
+    "search": [
+        {
+            "id": 41775,
+            "version": 5903,
+            "score": 0.54020226,
+            "payload": {
+                "bot_id": "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",
+                "content": "Adding a subscribe button to your Twitter profile can be a valuable strategy to grow your audience and keep them engaged with your content. While Twitter doesn't have a native "subscribe" button like some other social media platforms, there are several effective methods you can use to encourage users to follow your account and receive updates on your tweets.",
+                "source_id": "c26b16b4-d394-11ed-b5a3-33d8a09a24e3",
+                "tags": [
+                    "twitter"
+                ]
+            },
+            "vector": null
+        },
+        {
+            "id": 40028,
+            "version": 4159,
+            "score": 0.5324362,
+            "payload": {
+                "bot_id": "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",
+                "content": "Promote Your Content Regularly: Consistently share high-quality content that resonates with your target audience. This could include insightful thoughts, industry news, behind-the-scenes glimpses, or exclusive offers. The more valuable and relevant your content is, the more likely users will want to follow you.",
+                "source_id": "c26b16b4-d394-11ed-b5a3-33d8a09a24e3",
+                "tags": [
+                    "twitter"
+                ]
+            },
+            "vector": null
+        },
+    ]
+}
+
+```
 
 
 
