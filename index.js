@@ -81,6 +81,19 @@ BoostGPT.prototype.chat = async function({ bot_id = null, model = null, openai_k
     return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'POST'));
 }
 
+
+BoostGPT.prototype.search = async function({ bot_id = null, source_ids = [], keywords = '', tags = [], top = null } = {}) {
+    let url = `${this.host}bot/search`;
+    this.body.bot_id = bot_id;
+    this.body.source_ids = source_ids;
+    this.body.keywords = keywords;
+    this.body.tags = tags;
+    this.body.top = top;
+
+    return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'POST'));
+}
+
+
 BoostGPT.prototype.fetchChat = async function({ bot_id = null, chat_id = null, page = 1, per_page = 10 } = {}) {
     let url = `${this.host}bot/chat/read?project_id=${this.body.project_id}&bot_id=${bot_id}&chat_id=${chat_id}&page=${page}&per_page=${per_page}`;
     return new BoostGPTResponse(await url_request(url, null, this.apiKey));
