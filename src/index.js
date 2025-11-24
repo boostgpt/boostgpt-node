@@ -1,13 +1,13 @@
-const { body_request, url_request } = require("./request");
+import { body_request, url_request } from "./request.js";
 
 const base_url = "https://api.boostgpt.co/v1/";
 
-const BoostGPTResponse = function(response) {
+export const BoostGPTResponse = function(response) {
     this.err = response[0];
     this.response = response[1];
 }
 
-const BoostGPT = function({ project_id = null, key = null } = {}) {
+export const BoostGPT = function({ project_id = null, key = null } = {}) {
     this.host = base_url;
     this.apiKey = key;
     this.body = {
@@ -81,7 +81,6 @@ BoostGPT.prototype.chat = async function({ bot_id = null, model = null, provider
     return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'POST'));
 }
 
-
 BoostGPT.prototype.search = async function({ bot_id = null, source_ids = [], keywords = '', tags = [], top = null } = {}) {
     let url = `${this.host}bot/search`;
     this.body.bot_id = bot_id;
@@ -92,7 +91,6 @@ BoostGPT.prototype.search = async function({ bot_id = null, source_ids = [], key
 
     return new BoostGPTResponse(await body_request(url, this.body, this.apiKey, 'POST'));
 }
-
 
 BoostGPT.prototype.fetchChat = async function({ bot_id = null, chat_id = null, page = 1, per_page = 10 } = {}) {
     let url = `${this.host}bot/chat/read?project_id=${this.body.project_id}&bot_id=${bot_id}&chat_id=${chat_id}&page=${page}&per_page=${per_page}`;
@@ -145,7 +143,4 @@ BoostGPT.prototype.deleteTraining = async function({ source_id = null, bot_id = 
     return new BoostGPTResponse(await body_request(url, null, this.apiKey, 'DELETE'));
 }
 
-
-module.exports = {
-    BoostGPT
-}
+export default BoostGPT;

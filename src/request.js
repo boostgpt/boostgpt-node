@@ -1,6 +1,6 @@
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
-const body_request = async (url,body,apiKey,method) => {
+export const body_request = async (url, body, apiKey, method) => {
     method = method || "POST";
 
     let fetch_spec = {
@@ -18,20 +18,20 @@ const body_request = async (url,body,apiKey,method) => {
         let response = await fetch(url, fetch_spec);
         const output = await response.json();
         const { error, message } = output;
-        if(error){
+        if (error) {
             const { status } = error;
             if (status >= 400) {
                 throw new Error(message)
             }
         }
-        return [null,output];
-    } catch(ex) {
+        return [null, output];
+    } catch (ex) {
         const output = null;
-        return [ex,output];
+        return [ex, output];
     }
 }
 
-const url_request = async (url,params,apiKey) => {
+export const url_request = async (url, params, apiKey) => {
     if (params) {
         url += "?" + new URLSearchParams(params).toString();
     }
@@ -43,25 +43,19 @@ const url_request = async (url,params,apiKey) => {
         }
     };
 
-    
     try {
-        let response = await fetch(url,fetch_spec);
+        let response = await fetch(url, fetch_spec);
         const output = await response.json();
         const { error, message } = output;
-        if(error){
+        if (error) {
             const { status } = error;
             if (status >= 400) {
                 throw new Error(message)
             }
         }
-        return [null,output];
-    } catch(ex) {
+        return [null, output];
+    } catch (ex) {
         const output = null;
-        return [ex,output];
+        return [ex, output];
     }
-}
-
-module.exports = { 
-    url_request,
-    body_request,
 }

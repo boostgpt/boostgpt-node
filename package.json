@@ -1,9 +1,20 @@
 {
   "name": "boostgpt",
-  "version": "1.1.6",
-  "description": "BoostGPT client library for nodejs. ",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "BoostGPT client library for nodejs.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./src/index.js",
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
+    "build": "node build.js",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,7 +26,6 @@
     "search",
     "gpt",
     "chatgpt",
-    "chatgpt",
     "boostgpt",
     "openai",
     "anthropic",
@@ -25,7 +35,10 @@
     "xai",
     "gemini",
     "agi",
-    "ai"
+    "ai",
+    "esm",
+    "es6",
+    "modules"
   ],
   "contributors": [
     "David Oti <hello@davidoti.com>"
@@ -37,5 +50,19 @@
   "homepage": "https://github.com/boostgpt/boostgpt-node#readme",
   "dependencies": {
     "node-fetch": "^2.6.9"
-  }
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.0"
+  },
+  "engines": {
+    "node": ">=12.20.0"
+  },
+  "files": [
+    "src",
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "QUICKSTART.md",
+    "LICENSE"
+  ]
 }
