@@ -34,6 +34,38 @@ const boostgpt = new BoostGPT({
 
 ```
 
+## Supported AI Models
+
+BoostGPT now supports multiple AI providers. Choose from:
+
+### OpenAI Models
+- `gpt-5.1` - Latest GPT-5 model (1M context)
+- `gpt-5` - GPT-5 standard (1M context)
+- `gpt-5-mini` - Efficient GPT-5 variant (1M context)
+- `gpt-5-nano` - Most efficient GPT-5 (1M context)
+- `gpt-4.1` - Latest GPT-4 iteration (1M context)
+- `gpt-4.1-mini` - Efficient GPT-4.1 (1M context)
+- `gpt-4o` - GPT-4 optimized (128K context)
+- `gpt-4o-mini` - Efficient GPT-4o (128K context)
+
+### Anthropic Claude Models
+- `claude-sonnet-4-5` - Latest Claude Sonnet (200K context, 64K output)
+- `claude-haiku-4-5` - Latest Claude Haiku (200K context, 64K output)
+- `claude-opus-4-1` - Most capable Claude (200K context, 32K output)
+
+### Google Gemini Models
+- `gemini-3-pro-preview` - Latest Gemini preview (1M context)
+- `gemini-2.5-pro` - Gemini 2.5 Pro (1M context, 65K output)
+- `gemini-2.5-flash-lite` - Efficient Gemini (1M context, 65K output)
+- `gemini-2.5-flash` - Fast Gemini (1M context, 65K output)
+
+### xAI Grok Models
+- `grok-4-1-fast-non-reasoning` - Latest Grok (2M context)
+- `grok-4-fast-non-reasoning` - Fast Grok (2M context)
+- `grok-3-mini` - Efficient Grok (131K context)
+- `grok-3` - Standard Grok (131K context)
+
+
 ## Create a chatbot
 
 Here is an example that creates a chatbot in your BoostGPT project
@@ -43,14 +75,14 @@ Here is an example that creates a chatbot in your BoostGPT project
 
 let payload = {
     name: 'Example name',
-    model: "gpt-3.5-turbo", //Require any of : gpt-3.5-turbo, gpt-3.5-turbo-0301, gpt-3.5-turbo-16k, gpt-3.5-turbo-1106, gpt-4-32k, gpt-4-0613, gpt-4-32k-0613, gpt-4
-    instruction: `I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.`,//Optional. An instreuction to prompt the chatbot on how to respond
-    status: 1 //Require any string of [ "1" or "0"]. Status 1 = online, Status 0 = offline
+    model: "gpt-4o-mini", // Choose from supported models above
+    instruction: `I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always format your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.`, // Optional. An instruction to prompt the chatbot on how to respond
+    status: 1 // Required: "1" = online, "0" = offline
 }
 let chatbot = await boostgpt.createBot(payload);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -61,17 +93,17 @@ Response:
 
 
 ```json
-    {
-        "bot": {
-            "uuid": "fa155610-e2a2-11ed-8d7e-128759b35991",
-            "name": "Example name",
-            "model": "gpt-3.5-turbo",
-            "max_reply_tokens": "300",
-            "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
-            "status": 1,
-            "updated_at": "2023-04-24T13:21:52.000Z"
-        }
+{
+    "bot": {
+        "uuid": "fa155610-e2a2-11ed-8d7e-128759b35991",
+        "name": "Example name",
+        "model": "gpt-4o-mini",
+        "max_reply_tokens": "1000",
+        "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always format your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
+        "status": 1,
+        "updated_at": "2023-04-24T13:21:52.000Z"
     }
+}
 
 ```
 
@@ -86,14 +118,14 @@ Here is an example that updates a chatbot in your BoostGPT project
 let payload = {
     bot_id: "fa155610-e2a2-11ed-8d7e-128759b35991",
     name: 'Example name',
-    model: "gpt-3.5-turbo", //Require any of : gpt-3.5-turbo, gpt-3.5-turbo-0301, gpt-3.5-turbo-16k, gpt-3.5-turbo-1106, gpt-4-32k, gpt-4-0613, gpt-4-32k-0613, gpt-4
-    instruction: `I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.`,//Optional. An instreuction to prompt the chatbot on how to respond
-    status: 1 //Require any string of [ "1" or "0"]. Status 1 = online, Status 0 = offline
+    model: "claude-sonnet-4-5", // You can switch between any supported models
+    instruction: `I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always format your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.`, // Optional. An instruction to prompt the chatbot on how to respond
+    status: 1 // Required: "1" = online, "0" = offline
 }
 let chatbot = await boostgpt.updateBot(payload);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -104,17 +136,17 @@ Response:
 
 
 ```json
-    {
-        "bot": {
-            "uuid": "fa155610-e2a2-11ed-8d7e-128759b35991",
-            "name": "Example name",
-            "model": "gpt-3.5-turbo",
-            "max_reply_tokens": "300",
-            "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
-            "status": 1,
-            "updated_at": "2023-04-24T13:21:52.000Z"
-        }
+{
+    "bot": {
+        "uuid": "fa155610-e2a2-11ed-8d7e-128759b35991",
+        "name": "Example name",
+        "model": "claude-sonnet-4-5",
+        "max_reply_tokens": "1000",
+        "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always format your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
+        "status": 1,
+        "updated_at": "2023-04-24T13:21:52.000Z"
     }
+}
 
 ```
 
@@ -130,7 +162,7 @@ let bot_id = "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3";
 let chatbot = await boostgpt.fetchBot(bot_id);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -140,22 +172,22 @@ if (chatbot.err) {
 Response:
 
 ```json
-    {
-        "bot": {
-            "uuid": "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",
-            "model": "gpt-3.5-turbo", 
-            "max_reply_tokens": "300",
-            "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
-            "status": 1,
-            "updated_at": "2023-04-26T10:26:33.000Z"
-        }
+{
+    "bot": {
+        "uuid": "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",
+        "model": "gpt-4o-mini", 
+        "max_reply_tokens": "1000",
+        "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always format your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
+        "status": 1,
+        "updated_at": "2023-04-26T10:26:33.000Z"
     }
+}
 ```
 
 
 ## Fetch all chatbots
 
-Here is an example that fetches all chatbot in your BoostGPT project. The example below fetches 10 items per page.
+Here is an example that fetches all chatbots in your BoostGPT project. The example below fetches 10 items per page.
 
 
 ```javascript
@@ -166,10 +198,10 @@ let payload = {
 }
 let chatbots = await boostgpt.fetchBots(payload);
 
-if (chatbot.err) {
-   //Handle errors here.
+if (chatbots.err) {
+   // Handle errors here.
 }else{
-   console.log(chatbot.response);
+   console.log(chatbots.response);
 }
 
 ```
@@ -182,9 +214,9 @@ Response:
     "bots": [
         {
             "uuid": "dfd3b238-e41a-11ed-ad91-a2ce1f33a089",
-            "model": "gpt-3.5-turbo",
-            "max_reply_tokens": "300",
-            "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
+            "model": "gpt-4o-mini",
+            "max_reply_tokens": "1000",
+            "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always format your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
             "status": 0,
             "updated_at": "2023-04-26T12:22:46.000Z",
             "tokenCount": null,
@@ -192,9 +224,9 @@ Response:
         },
         {
             "uuid": "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",
-            "model": "gpt-3.5-turbo",
-            "max_reply_tokens": "300",
-            "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
+            "model": "claude-sonnet-4-5",
+            "max_reply_tokens": "8000",
+            "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always format your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
             "status": 1,
             "updated_at": "2023-04-26T10:26:33.000Z",
             "tokenCount": "23152",
@@ -208,7 +240,7 @@ Response:
 
 ## Reset a chatbot
 
-Here is an example that resets a chatbot in your BoostGPT project. Reseting a chatbot will delete all it's training data.
+Here is an example that resets a chatbot in your BoostGPT project. Resetting a chatbot will delete all its training data.
 
 
 ```javascript
@@ -217,7 +249,7 @@ let bot_id = "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3";
 let chatbot = await boostgpt.resetBot(bot_id);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -227,23 +259,23 @@ if (chatbot.err) {
 Response:
 
 ```json
-    {
-        "bot": {
-            "uuid": "dfd3b238-e41a-11ed-ad91-a2ce1f33a089",
-            "model": "gpt-3.5-turbo",
-            "max_reply_tokens": "300",
-            "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
-            "status": 1,
-            "updated_at": "2023-04-26T12:22:46.000Z"
-        }
+{
+    "bot": {
+        "uuid": "dfd3b238-e41a-11ed-ad91-a2ce1f33a089",
+        "model": "gpt-4o-mini",
+        "max_reply_tokens": "1000",
+        "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always format your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
+        "status": 1,
+        "updated_at": "2023-04-26T12:22:46.000Z"
     }
+}
 ```
 
 
 
 ## Delete a chatbot
 
-Here is an example that deletes a chatbot in your BoostGPT project. Deleting a chatbot will delete all it's training data.
+Here is an example that deletes a chatbot in your BoostGPT project. Deleting a chatbot will delete all its training data.
 
 
 
@@ -253,7 +285,7 @@ let bot_id = "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3";
 let chatbot = await boostgpt.deleteBot(bot_id);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -263,16 +295,16 @@ if (chatbot.err) {
 Response:
 
 ```json
-    {
-        "bot": {
-            "uuid": "dfd3b238-e41a-11ed-ad91-a2ce1f33a089",
-            "model": "gpt-3.5-turbo",
-            "max_reply_tokens": "300",
-            "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always formats your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
-            "status": 1,
-            "updated_at": "2023-04-26T12:22:46.000Z"
-        }
+{
+    "bot": {
+        "uuid": "dfd3b238-e41a-11ed-ad91-a2ce1f33a089",
+        "model": "gpt-4o-mini",
+        "max_reply_tokens": "1000",
+        "instruction": "I want you to act as an AI assistant that I am having a conversation with. Your name is 'AI Assistant' and you always format your responses in Markdown. You will provide me with answers from the given context. If the answer is not included, say exactly 'Hmm, I am not sure.' and stop after that. Refuse to answer any question not about the info. Never break character.",
+        "status": 1,
+        "updated_at": "2023-04-26T12:22:46.000Z"
     }
+}
 ```
 
 
@@ -281,21 +313,21 @@ Response:
 
 ## Train chatbot with your data
 
-Here is an example that adds a training data to a chatbot in your BoostGPT project
+Here is an example that adds training data to a chatbot in your BoostGPT project
 
 
 ```javascript
 
 let payload = {
-    bot_id: "fa155610-e2a2-11ed-8d7e-128759b35991"
-    tags: [], //Use tags to segment your training data
-    type: 'text', //Require any of : text, file, webpage, website
-    source: 'YOUR SOURCE DATA',//Require your text content or an accessible link to your file, webpage, or website
+    bot_id: "fa155610-e2a2-11ed-8d7e-128759b35991",
+    tags: [], // Use tags to segment your training data
+    type: 'text', // Required: text, file, webpage, or website
+    source: 'YOUR SOURCE DATA', // Required: your text content or an accessible link to your file, webpage, or website
 }
 let chatbot = await boostgpt.startTraining(payload);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -306,17 +338,17 @@ Response:
 
 
 ```json
-    {
-        "source": {
-            "uuid": "1f2fbbd2-e436-11ed-ad91-a2ce1f33a089",
-            "source": "",
-            "type": "text",
-            "links_crawled": [],
-            "links_crawled_count": "0",
-            "tags": [],
-            "tokens": 199
-        }
+{
+    "source": {
+        "uuid": "1f2fbbd2-e436-11ed-ad91-a2ce1f33a089",
+        "source": "",
+        "type": "text",
+        "links_crawled": [],
+        "links_crawled_count": "0",
+        "tags": [],
+        "tokens": 199
     }
+}
 ```
 
 
@@ -330,14 +362,14 @@ Here is an example that updates a training source on a chatbot in your BoostGPT 
 let payload = {
     bot_id: "fa155610-e2a2-11ed-8d7e-128759b35991",
     source_id: "1f2fbbd2-e436-11ed-ad91-a2ce1f33a089",
-    tags: ["twitter","revue"], //Use tags to segment your training data
-    type: 'text', //Require any of : text, file, webpage, website
-    source: `YOUR SOURCE DATA`,//Require your text content or an accessible link to your file, webpage, or website
+    tags: ["twitter","revue"], // Use tags to segment your training data
+    type: 'text', // Required: text, file, webpage, or website
+    source: `YOUR SOURCE DATA`, // Required: your text content or an accessible link to your file, webpage, or website
 }
 let chatbot = await boostgpt.updateTraining(payload);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -348,20 +380,20 @@ Response:
 
 
 ```json
-    {
-        "source": {
-            "uuid": "1f2fbbd2-e436-11ed-ad91-a2ce1f33a089",
-            "source": "",
-            "type": "text",
-            "links_crawled": [],
-            "links_crawled_count": "0",
-            "tags": [
-                "twitter",
-                "revue"
-            ],
-            "tokens": 516
-        }
+{
+    "source": {
+        "uuid": "1f2fbbd2-e436-11ed-ad91-a2ce1f33a089",
+        "source": "",
+        "type": "text",
+        "links_crawled": [],
+        "links_crawled_count": "0",
+        "tags": [
+            "twitter",
+            "revue"
+        ],
+        "tokens": 516
     }
+}
 ```
 
 
@@ -381,7 +413,7 @@ let payload = {
 let chatbot = await boostgpt.fetchTraining(payload);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -391,26 +423,26 @@ if (chatbot.err) {
 Response:
 
 ```json
-    {
-        "source": {
-            "uuid": "832146d2-e43c-11ed-ad91-a2ce1f33a089",
-            "source": "",
-            "type": "text",
-            "links_crawled": [],
-            "links_crawled_count": "0",
-            "tags": [
-                "twitter",
-                "revue"
-            ],
-            "tokens": 516
-        }
+{
+    "source": {
+        "uuid": "832146d2-e43c-11ed-ad91-a2ce1f33a089",
+        "source": "",
+        "type": "text",
+        "links_crawled": [],
+        "links_crawled_count": "0",
+        "tags": [
+            "twitter",
+            "revue"
+        ],
+        "tokens": 516
     }
+}
 ```
 
 
-## Fetch a chatbot training sources
+## Fetch chatbot training sources
 
-Here is an example that fetches a chatbot training sources in your BoostGPT project. The example below fetches 10 items per page.
+Here is an example that fetches a chatbot's training sources in your BoostGPT project. The example below fetches 10 items per page.
 
 
 ```javascript
@@ -422,10 +454,10 @@ let payload = {
 }
 let chatbots = await boostgpt.fetchTrainings(payload);
 
-if (chatbot.err) {
-   //Handle errors here.
+if (chatbots.err) {
+   // Handle errors here.
 }else{
-   console.log(chatbot.response);
+   console.log(chatbots.response);
 }
 
 ```
@@ -463,7 +495,7 @@ Response:
                 "ecommerce"
             ],
             "tokens": 4492
-        },
+        }
     ]
 }
 ```
@@ -483,7 +515,7 @@ let payload = {
 let chatbot = await boostgpt.deleteTraining(payload);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -494,20 +526,20 @@ if (chatbot.err) {
 Response:
 
 ```json
-    {
-        "source": {
-            "uuid": "1f2fbbd2-e436-11ed-ad91-a2ce1f33a089",
-            "source": "",
-            "type": "text",
-            "links_crawled": [],
-            "links_crawled_count": "0",
-            "tags": [
-                "twitter",
-                "revue"
-            ],
-            "tokens": 516
-        }
+{
+    "source": {
+        "uuid": "1f2fbbd2-e436-11ed-ad91-a2ce1f33a089",
+        "source": "",
+        "type": "text",
+        "links_crawled": [],
+        "links_crawled_count": "0",
+        "tags": [
+            "twitter",
+            "revue"
+        ],
+        "tokens": 516
     }
+}
 ```
 
 
@@ -519,29 +551,40 @@ Response:
 
 ## Engage a chatbot
 
-Here is an example that shows how you can engage a chatbot that has been trained with your data. You will need an [Openai API key](https://platform.openai.com/account/api-keys) to chat with a bot. 
+Here is an example that shows how you can engage a chatbot that has been trained with your data. 
+
+**🔑 API Key Requirements:**
+- For **OpenAI models** (gpt-*): Requires an [OpenAI API key](https://platform.openai.com/account/api-keys)
+- For **Anthropic models** (claude-*): Requires an [Anthropic API key](https://console.anthropic.com/)
+- For **Google models** (gemini-*): Requires a [Google AI API key](https://ai.google.dev/)
+- For **xAI models** (grok-*): Requires an [xAI API key](https://console.x.ai/)
+
+You can provide the API key in two ways:
+1. **Per-request**: Pass `provider_key` in the chat payload (recommended for dynamic model switching)
+2. **Stored with bot**: Configure API keys when creating/updating the bot
 
 
 ```javascript
 
 let payload = {
-    bot_id: "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",//The bot to chat
-    openai_key: "YOUR-OPENAI-APIKEY",
-    model: "gpt-3.5-turbo", //The model to use for the chat response. Defaults to the bot model.
-    message: "How can I add a subscribe button to my twitter profile?", //The chat message
-    source_ids: ["c26b16b4-d394-11ed-b5a3-33d8a09a24e3"], //The training source id's you want the AI's knowledge to be limited to.
-    tags: ["twitter"], //Use tags to get the segment of the training data you want the AI's knowledge to be limited to.
-    top: 10, //Optional. The weight of training data used to form a context. Defaults to 10. Recommended settings between : 10 - 15 give better response from the AI.
-    max_reply_tokens: 300, // Optional. The maximum number of tokens allowed for the chat response. By default, the number of tokens the model can return will be (300 - tokens).
-    instruction: "", //Optional. An instruction to tell the AI how to reply. Defaults to the bot instruction.
-    chat_id: "example-chat-id", //Optional. Specify a chat id if you want to engage the AI in a conversational manner. Chat id should be unique per chat thread with the AI.
-    stream: false
+    bot_id: "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3", // The bot to chat with
+    provider_key: "YOUR-PROVIDER-API-KEY", // Optional: API key for the model's provider (OpenAI, Anthropic, Gemini, or xAI)
+    model: "gpt-4o-mini", // Optional: The model to use for the chat response. Defaults to the bot's model.
+    message: "How can I add a subscribe button to my twitter profile?", // The chat message
+    source_ids: ["c26b16b4-d394-11ed-b5a3-33d8a09a24e3"], // Optional: The training source IDs you want the AI's knowledge to be limited to
+    tags: ["twitter"], // Optional: Use tags to segment the training data the AI's knowledge is limited to
+    top: 5, // Optional: The weight of training data used to form context. Defaults to 5. Recommended: 5-10 for better responses
+    max_reply_tokens: 1000, // Optional: Maximum tokens for chat response. Defaults to the model's max output
+    instruction: "", // Optional: Instruction to tell the AI how to reply. Defaults to the bot's instruction
+    chat_id: "example-chat-id", // Optional: Specify a chat ID for conversational continuity. Should be unique per chat thread
+    stream: false, // Optional: Enable streaming response
+    vector: true // Optional: Enable vector search for context. Defaults to true
 }
 
 let chatbot = await boostgpt.chat(payload);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -552,7 +595,6 @@ if (chatbot.err) {
 Response:
 
 ```json
-
 {
     "chat": {
         "reply": "THE BOT REPLY.",
@@ -572,7 +614,50 @@ Response:
         }
     }
 }
+```
 
+### Examples with different providers:
+
+```javascript
+// Using OpenAI GPT-4o
+let openai_chat = await boostgpt.chat({
+    bot_id: "bot-123",
+    model: "gpt-4o",
+    provider_key: "sk-proj-...", // OpenAI API key
+    message: "Hello!"
+});
+
+// Using Anthropic Claude
+let claude_chat = await boostgpt.chat({
+    bot_id: "bot-123",
+    model: "claude-sonnet-4-5",
+    provider_key: "sk-ant-...", // Anthropic API key
+    message: "Hello!"
+});
+
+// Using Google Gemini
+let gemini_chat = await boostgpt.chat({
+    bot_id: "bot-123",
+    model: "gemini-2.5-pro",
+    provider_key: "AIza...", // Google AI API key
+    message: "Hello!"
+});
+
+// Using xAI Grok
+let grok_chat = await boostgpt.chat({
+    bot_id: "bot-123",
+    model: "grok-3",
+    provider_key: "xai-...", // xAI API key
+    message: "Hello!"
+});
+
+// Using bot's stored API key (no provider_key needed)
+let stored_key_chat = await boostgpt.chat({
+    bot_id: "bot-123",
+    model: "gpt-4o-mini",
+    // provider_key not needed if bot has stored OpenAI key
+    message: "Hello!"
+});
 ```
 
 
@@ -593,7 +678,7 @@ let payload = {
 let chatbot = await boostgpt.fetchChat(payload);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -603,35 +688,35 @@ if (chatbot.err) {
 Response:
 
 ```json
-    {
-        "total": 3,
-        "conversation": [
-            {
-                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
-                "content": "hi",
-                "role": "user",
-                "tokens": 1
-            },
-            {
-                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
-                "content": "Hello! How can I assist you today?",
-                "role": "system",
-                "tokens": 7
-            },
-            {
-                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
-                "content": "I am thinking of writing a blog post around boostgpt, something that will bring traffic",
-                "role": "user",
-                "tokens": 15
-            },
-        ]
-    }
+{
+    "total": 3,
+    "conversation": [
+        {
+            "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+            "content": "hi",
+            "role": "user",
+            "tokens": 1
+        },
+        {
+            "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+            "content": "Hello! How can I assist you today?",
+            "role": "assistant",
+            "tokens": 7
+        },
+        {
+            "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+            "content": "I am thinking of writing a blog post around boostgpt, something that will bring traffic",
+            "role": "user",
+            "tokens": 15
+        }
+    ]
+}
 ```
 
 
 ## Fetch a chatbot chats
 
-Here is an example that fetches a chatbot chats in your BoostGPT project. The example below fetches 10 items per page.
+Here is an example that fetches a chatbot's chats in your BoostGPT project. The example below fetches 10 items per page.
 
 
 ```javascript
@@ -643,10 +728,10 @@ let payload = {
 }
 let chatbots = await boostgpt.fetchChats(payload);
 
-if (chatbot.err) {
-   //Handle errors here.
+if (chatbots.err) {
+   // Handle errors here.
 }else{
-   console.log(chatbot.response);
+   console.log(chatbots.response);
 }
 
 ```
@@ -694,7 +779,7 @@ let payload = {
 let chatbot = await boostgpt.deleteChat(payload);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -705,28 +790,28 @@ if (chatbot.err) {
 Response:
 
 ```json
-    {
-        "conversation": [
-            {
-                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
-                "content": "hi",
-                "role": "user",
-                "tokens": 1
-            },
-            {
-                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
-                "content": "Hello! How can I assist you today?",
-                "role": "system",
-                "tokens": 7
-            },
-            {
-                "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
-                "content": "I am thinking of writing a blog post around boostgpt, something that will bring traffic",
-                "role": "user",
-                "tokens": 15
-            },
-        ]
-    }
+{
+    "conversation": [
+        {
+            "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+            "content": "hi",
+            "role": "user",
+            "tokens": 1
+        },
+        {
+            "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+            "content": "Hello! How can I assist you today?",
+            "role": "assistant",
+            "tokens": 7
+        },
+        {
+            "chat_id": "f385229f-d142-4c3b-997f-6a4ec6445a4d",
+            "content": "I am thinking of writing a blog post around boostgpt, something that will bring traffic",
+            "role": "user",
+            "tokens": 15
+        }
+    ]
+}
 ```
 
 
@@ -739,17 +824,17 @@ Here is an example that shows how you can search a chatbot that has been trained
 ```javascript
 
 let payload = {
-    bot_id: "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3",//The bot to search
-    keywords: "How can I add a subscribe button to my twitter profile?", //The search keywords
-    source_ids: ["c26b16b4-d394-11ed-b5a3-33d8a09a24e3"], //The training source id's you want the AI's knowledge to be limited to.
-    tags: ["twitter"], //Use tags to get the segment of the training data you want the AI's knowledge to be limited to.
-    top: 10, //Optional. The weight of training data used to form a context. Defaults to 10. Recommended settings between : 10 - 15 give better response from the AI.
+    bot_id: "8e9124a2-e0a3-11ed-b5a3-33d8a09a24e3", // The bot to search
+    keywords: "How can I add a subscribe button to my twitter profile?", // The search keywords
+    source_ids: ["c26b16b4-d394-11ed-b5a3-33d8a09a24e3"], // Optional: The training source IDs to limit the search to
+    tags: ["twitter"], // Optional: Use tags to segment the training data the search is limited to
+    top: 10, // Optional: The weight of training data used to form results. Defaults to 5. Recommended: 5-10
 }
 
 let chatbot = await boostgpt.search(payload);
 
 if (chatbot.err) {
-   //Handle errors here.
+   // Handle errors here.
 }else{
    console.log(chatbot.response);
 }
@@ -760,7 +845,6 @@ if (chatbot.err) {
 Response:
 
 ```json
-
 {
     "search": [
         {
@@ -790,20 +874,56 @@ Response:
                 ]
             },
             "vector": null
-        },
+        }
     ]
 }
-
 ```
 
 
+## Migration Guide for Existing Users
+
+If you're upgrading from a previous version:
+
+### Breaking Changes
+- Old OpenAI models (`gpt-3.5-turbo-0301`, `gpt-3.5-turbo-16k`, `gpt-4-32k`, etc.) are no longer supported
+- Use the new model names listed in the "Supported AI Models" section
+
+### New Features
+- ✅ Support for Anthropic Claude models
+- ✅ Support for Google Gemini models
+- ✅ Support for xAI Grok models
+- ✅ Simplified API with `provider_key` parameter
+- ✅ Larger context windows (up to 2M tokens with Grok)
+- ✅ Higher output limits (up to 65K tokens with Gemini)
+
+### Migrating Your Code
+
+**Old way:**
+```javascript
+let payload = {
+    bot_id: "bot-123",
+    model: "gpt-3.5-turbo",
+    openai_key: "sk-...",
+    message: "Hello"
+}
+```
+
+**New way (backwards compatible):**
+```javascript
+let payload = {
+    bot_id: "bot-123",
+    model: "gpt-4o-mini", // Updated model name
+    provider_key: "sk-...", // Simplified key parameter
+    message: "Hello"
+}
+```
 
 
 ## Conventions
 
 All methods must be awaited, and return a BoostGPTResponse object - which only has two properties: `err` and `response`.
 
-Always check for presence of `err`.  If `err` is not null, then the response might not be valid.
+Always check for presence of `err`. If `err` is not null, then the response might not be valid.
 
 
 

@@ -63,11 +63,11 @@ BoostGPT.prototype.deleteBot = async function(id) {
     return new BoostGPTResponse(await body_request(url, null, this.apiKey, 'DELETE'));
 }
 
-BoostGPT.prototype.chat = async function({ bot_id = null, model = null, openai_key = null, instruction = null, source_ids = [], message = '', tags = [], top = null, max_reply_tokens = null, chat_id = null, stream = false, vector = true } = {}) {
+BoostGPT.prototype.chat = async function({ bot_id = null, model = null, provider_key = null, instruction = null, source_ids = [], message = '', tags = [], top = null, max_reply_tokens = null, chat_id = null, stream = false, vector = true } = {}) {
     let url = `${this.host}bot/chat`;
     this.body.bot_id = bot_id;
     this.body.model = model;
-    this.body.openai_key = openai_key;
+    this.body.provider_key = provider_key;
     this.body.instruction = instruction;
     this.body.source_ids = source_ids;
     this.body.message = message;
