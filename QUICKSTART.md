@@ -21,7 +21,7 @@ const client = new BoostGPT({
 // Create a bot
 const bot = await client.createBot({
     name: 'My Assistant',
-    model: 'gpt-4',
+    model: 'gpt-4o-min',
     instruction: 'You are a helpful assistant'
 });
 
@@ -48,7 +48,7 @@ const client = new BoostGPT({
 (async () => {
     const bot = await client.createBot({
         name: 'My Assistant',
-        model: 'gpt-4',
+        model: 'gpt-4o-min',
         instruction: 'You are a helpful assistant'
     });
     
@@ -113,7 +113,7 @@ boostgpt/
 ```javascript
 const bot = await client.createBot({
     name: 'Bot Name',
-    model: 'gpt-4',
+    model: 'gpt-4o-min',
     instruction: 'System instruction',
     status: 'active'
 });

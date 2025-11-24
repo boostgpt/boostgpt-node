@@ -37,7 +37,7 @@ const client = new BoostGPT({
 // Create a bot
 const botResponse = await client.createBot({
     name: 'My Bot',
-    model: 'gpt-4',
+    model: 'gpt-4o-min',
     instruction: 'You are a helpful assistant',
     max_reply_tokens: 1000,
     status: 'active'
@@ -73,7 +73,7 @@ const client = new BoostGPT({
 (async () => {
     const botResponse = await client.createBot({
         name: 'My Bot',
-        model: 'gpt-4',
+        model: 'gpt-4o-min',
         instruction: 'You are a helpful assistant'
     });
     
@@ -98,7 +98,7 @@ const client = new BoostGPT({
 ```javascript
 await client.createBot({
     name: 'Bot Name',
-    model: 'gpt-4',
+    model: 'gpt-4o-min',
     instruction: 'System instruction',
     max_reply_tokens: 1000,
     top: 0.9,
@@ -125,7 +125,7 @@ await client.fetchBots({
 await client.updateBot({
     bot_id: 'bot-id',
     name: 'Updated Name',
-    model: 'gpt-4',
+    model: 'gpt-4o-min',
     instruction: 'Updated instruction',
     max_reply_tokens: 1500,
     top: 0.8,
@@ -150,7 +150,7 @@ await client.deleteBot(bot_id);
 ```javascript
 await client.chat({
     bot_id: 'bot-id',
-    model: 'gpt-4',
+    model: 'gpt-4o-min',
     provider_key: 'optional-provider-key',
     instruction: 'Optional override instruction',
     source_ids: ['source1', 'source2'],
