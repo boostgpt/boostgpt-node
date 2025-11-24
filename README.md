@@ -8,55 +8,18 @@
     <br>
 </div>
 
-## Prerequisite
 
-[Requires an API Key for BoostGPT which can be found here.](https://app.boostgpt.co/account/api-keys)
+## Requirements
+
+- Node.js >= 12.20.0
+- For ES Modules: Node.js >= 14.0.0 recommended
+- BoostGPT [API Key](https://app.boostgpt.co/account/api-keys)
 
 
 ## Installation
 
 ```bash
 npm install boostgpt
-```
-
-## Version 2.0.0 - Breaking Changes
-
-Version 2.0.0 converts the package to ES Modules by default while maintaining full backward compatibility with CommonJS.
-
-### Package Structure
-
-```
-boostgpt/
-├── src/               # ES Module source files (ESM)
-│   ├── index.js
-│   └── request.js
-├── dist/              # Built CommonJS files (generated)
-│   ├── index.cjs
-│   └── request.cjs
-├── build.js           # Build script
-└── package.json
-```
-
-### What's New
-
-- ✅ **Native ES Modules** - Source code in `src/` uses ESM
-- ✅ **Built CommonJS** - `npm run build` generates CJS in `dist/`
-- ✅ **Dual Package Exports** - Automatic module resolution
-- ✅ **Zero Config** - Works out of the box for both ESM and CJS
-- ✅ **Pre-publish Hook** - Automatically builds before publishing
-
-### Migration Guide
-
-**For CommonJS users (no changes needed):**
-```javascript
-const { BoostGPT } = require('boostgpt');
-```
-
-**For ES Module users:**
-```javascript
-import { BoostGPT } from 'boostgpt';
-// or
-import BoostGPT from 'boostgpt';
 ```
 
 ## Usage
@@ -331,6 +294,7 @@ The build process converts the ES Module source files in `src/` to CommonJS in `
 - **`build.js`** - Build script that transpiles ESM to CJS
 - **`package.json`** - Configured with `"type": "module"` and dual exports
 
+
 ### Making Changes
 
 1. Edit files in `src/` (ESM format)
@@ -338,32 +302,6 @@ The build process converts the ES Module source files in `src/` to CommonJS in `
 3. Test both ESM and CJS usage
 4. The `prepublishOnly` script automatically builds before publishing
 
-## Requirements
-
-- Node.js >= 12.20.0
-- For ES Modules: Node.js >= 14.0.0 recommended
-
-## How It Works
-
-The package uses Node.js **Conditional Exports** to serve the right module format:
-
-```json
-{
-  "type": "module",
-  "main": "./dist/index.cjs",
-  "module": "./src/index.js",
-  "exports": {
-    ".": {
-      "import": "./src/index.js",
-      "require": "./dist/index.cjs"
-    }
-  }
-}
-```
-
-- **ESM environments** (`import`) → use `src/index.js`
-- **CJS environments** (`require`) → use `dist/index.cjs`
-- **Automatic resolution** - Node.js handles it for you
 
 ## TypeScript Support
 
