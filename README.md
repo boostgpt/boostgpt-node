@@ -40,7 +40,7 @@ const botResponse = await client.createBot({
     model: 'gpt-4o-min',
     instruction: 'You are a helpful assistant',
     max_reply_tokens: 1000,
-    status: 'active'
+    status: 1
 });
 
 if (botResponse.err) {
@@ -52,8 +52,7 @@ if (botResponse.err) {
 // Chat with the bot
 const chatResponse = await client.chat({
     bot_id: 'bot-id',
-    message: 'Hello, how are you?',
-    vector: true
+    message: 'Hello, how are you?'
 });
 
 console.log('Response:', chatResponse.response);
@@ -101,9 +100,7 @@ await client.createBot({
     model: 'gpt-4o-min',
     instruction: 'System instruction',
     max_reply_tokens: 1000,
-    top: 0.9,
-    welcome_message: 'Hello!',
-    status: 'active'
+    status: 1
 });
 ```
 
@@ -125,12 +122,10 @@ await client.fetchBots({
 await client.updateBot({
     bot_id: 'bot-id',
     name: 'Updated Name',
-    model: 'gpt-4o-min',
+    model: 'gpt-5.1',
     instruction: 'Updated instruction',
     max_reply_tokens: 1500,
-    top: 0.8,
-    welcome_message: 'Hi there!',
-    status: 'active'
+    status: "0" // 1 = online, 0 = offline
 });
 ```
 
@@ -150,17 +145,17 @@ await client.deleteBot(bot_id);
 ```javascript
 await client.chat({
     bot_id: 'bot-id',
-    model: 'gpt-4o-min',
-    provider_key: 'optional-provider-key',
+    model: 'gpt-4o-min',  //Optional
+    provider_key: 'optional-provider-key', //Optional
+    provider_host: 'optionl-provider-host', // Only needed and required when using ollama models
     instruction: 'Optional override instruction',
-    source_ids: ['source1', 'source2'],
+    reasoning_mode: 'optional-reasoning-mode', //Default to standard
+    source_ids: ['source1', 'source2'], //Optional
     message: 'Your message here',
-    tags: ['tag1', 'tag2'],
-    top: 0.9,
-    max_reply_tokens: 1000,
+    max_reply_tokens: 1000,  //Optional
     chat_id: 'optional-chat-id',
-    stream: false,
-    vector: true
+    stream: false,  //Optional
+    memory: false // Optional: Disables the agents memory
 });
 ```
 
@@ -169,9 +164,7 @@ await client.chat({
 await client.search({
     bot_id: 'bot-id',
     source_ids: ['source1', 'source2'],
-    keywords: 'search terms',
-    tags: ['tag1', 'tag2'],
-    top: 5
+    keywords: 'search terms'
 });
 ```
 
@@ -208,7 +201,6 @@ await client.deleteChat({
 ```javascript
 await client.startTraining({
     bot_id: 'bot-id',
-    tags: ['tag1', 'tag2'],
     type: 'text',
     source: 'Training content here'
 });
@@ -236,7 +228,6 @@ await client.fetchTrainings({
 await client.updateTraining({
     source_id: 'source-id',
     bot_id: 'bot-id',
-    tags: ['updated-tag'],
     type: 'text',
     source: 'Updated content'
 });
