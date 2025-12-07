@@ -1,6 +1,6 @@
 <div align="center">
     <h1>BoostGPT Node.js Client</h1>
-    <p>Official BoostGPT client library for Node.js with full ES Modules (ESM) and CommonJS (CJS) support..</p>
+    <p>Official BoostGPT client library for Node.js with full ES Modules (ESM) and CommonJS (CJS) support.</p>
     <a href="https://www.npmjs.com/package/boostgpt"><img src="https://img.shields.io/npm/v/boostgpt" alt="NPM Version"></a>
     <a href="https://discord.gg/FPTmDNjA"><img src="https://img.shields.io/discord/1100801013121822770?color=%bbccff&label=Discord" alt="Discord"></a>
     <a href="https://docs.boostgpt.co"><img src="https://img.shields.io/badge/Docs-BoostGPT" alt="Documentation"></a>
@@ -8,6 +8,35 @@
     <br>
 </div>
 
+## Features
+
+- Full ES Modules (ESM) and CommonJS (CJS) support
+- Complete API coverage for all BoostGPT endpoints
+- Bot/Agent management (create, read, update, delete)
+- Chat operations with streaming support
+- Memory source/training management
+- Tools management (MCP server integration)
+- Message voting and feedback
+- Subscriber management
+- Comprehensive analytics and statistics
+- TypeScript-friendly (type definitions coming soon)
+
+## Table of Contents
+
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Reference](#api-reference)
+  - [Bot Management](#bot-management)
+  - [Chat Operations](#chat-operations)
+  - [Training/Source Management](#trainingsource-management)
+  - [Tools Management](#tools-management)
+  - [Subscribers](#subscribers)
+  - [Analytics](#analytics)
+- [Response Format](#response-format)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Requirements
 
@@ -195,6 +224,50 @@ await client.deleteChat({
 });
 ```
 
+#### Execute Tool
+```javascript
+await client.executeTool({
+    bot_id: 'bot-id',
+    chat_id: 'chat-id',
+    tool_calls: [
+        {
+            tool_name: 'calculator',
+            parameters: { operation: 'add', a: 5, b: 3 }
+        }
+    ]
+});
+```
+
+#### Vote on Message
+```javascript
+await client.voteMessage({
+    bot_id: 'bot-id',
+    message_id: 'message-id',
+    voter_id: 'user-id',
+    voter_type: 'member',
+    vote_type: 'upvote' // or 'downvote'
+});
+```
+
+#### Fetch Vote Status
+```javascript
+await client.fetchVoteStatus({
+    bot_id: 'bot-id',
+    message_id: 'message-id',
+    voter_id: 'user-id',
+    voter_type: 'member'
+});
+```
+
+#### Delete Message
+```javascript
+await client.deleteMessage({
+    bot_id: 'bot-id',
+    chat_id: 'chat-id',
+    message_id: 'message-id'
+});
+```
+
 ### Training/Source Management
 
 #### Start Training
@@ -237,6 +310,173 @@ await client.updateTraining({
 ```javascript
 await client.deleteTraining({
     source_id: 'source-id',
+    bot_id: 'bot-id'
+});
+```
+
+### Tools Management
+
+#### Fetch Tools
+```javascript
+await client.fetchTools({
+    bot_id: 'bot-id',
+    page: 1,
+    per_page: 10,
+    filter: { type: 'mcp' } // Optional filter
+});
+```
+
+#### Create Tool
+```javascript
+await client.createTool({
+    bot_id: 'bot-id',
+    name: 'My Tool',
+    description: 'Tool description',
+    config: {
+        url: 'https://api.example.com',
+        auth: 'bearer_token'
+    },
+    type: 'mcp'
+});
+```
+
+#### Fetch Tool
+```javascript
+await client.fetchTool({
+    tool_id: 'tool-id',
+    bot_id: 'bot-id'
+});
+```
+
+#### Update Tool
+```javascript
+await client.updateTool({
+    tool_id: 'tool-id',
+    bot_id: 'bot-id',
+    name: 'Updated Tool Name',
+    description: 'Updated description',
+    config: { /* updated config */ },
+    type: 'mcp'
+});
+```
+
+#### Delete Tool
+```javascript
+await client.deleteTool({
+    tool_id: 'tool-id',
+    bot_id: 'bot-id'
+});
+```
+
+#### Configure Tools
+```javascript
+await client.configureTools({
+    tool_id: 'tool-id',
+    bot_id: 'bot-id',
+    settings: {
+        enabled: true,
+        timeout: 30000
+    }
+});
+```
+
+#### Refresh Tools
+```javascript
+await client.refreshTools({
+    tool_id: 'tool-id',
+    bot_id: 'bot-id'
+});
+```
+
+#### Toggle Tool
+```javascript
+await client.toggleTool({
+    tool_id: 'tool-id',
+    bot_id: 'bot-id',
+    tool_name: 'specific-tool',
+    active: true
+});
+```
+
+#### Test Tool Connection
+```javascript
+await client.testToolConnection({
+    tool_id: 'tool-id',
+    bot_id: 'bot-id'
+});
+```
+
+### Subscribers
+
+#### Fetch Subscribers
+```javascript
+await client.fetchSubscribers({
+    page: 1,
+    per_page: 10
+});
+```
+
+### Analytics
+
+#### Fetch Vote Statistics
+```javascript
+await client.fetchVoteStats({
+    bot_id: 'bot-id'
+});
+```
+
+#### Fetch Summary Statistics
+```javascript
+await client.fetchSummaryStats({
+    bot_id: 'bot-id'
+});
+```
+
+#### Fetch Dashboard Statistics
+```javascript
+await client.fetchDashboardStats({
+    bot_id: 'bot-id'
+});
+```
+
+#### Fetch Tool Usage Statistics
+```javascript
+await client.fetchToolUsageStats({
+    bot_id: 'bot-id'
+});
+```
+
+#### Fetch Workflow Statistics
+```javascript
+await client.fetchWorkflowStats({
+    bot_id: 'bot-id'
+});
+```
+
+#### Fetch Performance Metrics
+```javascript
+await client.fetchPerformanceMetrics({
+    bot_id: 'bot-id'
+});
+```
+
+#### Fetch User Behavior Statistics
+```javascript
+await client.fetchBehaviorStats({
+    bot_id: 'bot-id'
+});
+```
+
+#### Fetch Error Analysis
+```javascript
+await client.fetchErrorAnalysis({
+    bot_id: 'bot-id'
+});
+```
+
+#### Fetch Reasoning Summary
+```javascript
+await client.fetchReasoningSummary({
     bot_id: 'bot-id'
 });
 ```
