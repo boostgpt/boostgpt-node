@@ -15,6 +15,13 @@
 - Bot/Agent management (create, read, update, delete)
 - Chat operations with streaming support
 - Memory source/training management
+- User memory management (per-user semantic, episodic, procedural memories)
+- Workflows (create, run, and monitor multi-step automations)
+- Heartbeats (scheduled autonomous agent runs with cron support)
+- Workspaces (sandbox file system — read, write, publish)
+- Email inbox management (read, reply, configure)
+- CRM (contacts, custom fields, pipelines, deals, tasks)
+- MCP connector management (deploy from catalog, OpenAPI, or Postman)
 - Tools management (MCP server integration)
 - Message voting and feedback
 - Subscriber management
@@ -31,6 +38,13 @@
   - [Chat Operations](#chat-operations)
   - [Training/Source Management](#trainingsource-management)
   - [Tools Management](#tools-management)
+  - [User Memory](#user-memory)
+  - [Workflows](#workflows)
+  - [Heartbeats](#heartbeats)
+  - [Workspaces](#workspaces)
+  - [Email Inbox](#email-inbox)
+  - [CRM](#crm)
+  - [MCP Connectors](#mcp-connectors)
   - [Subscribers](#subscribers)
   - [Analytics](#analytics)
 - [Response Format](#response-format)
@@ -404,6 +418,355 @@ await client.testToolConnection({
     tool_id: 'tool-id',
     bot_id: 'bot-id'
 });
+```
+
+### User Memory
+
+#### List Memories
+```javascript
+await client.fetchMemories({
+    bot_id: 'bot-id',
+    user_uuid: 'user-uuid',  // optional: filter by user
+    type: 'semantic',         // optional: 'semantic' | 'episodic' | 'procedural' | 'all'
+    page: 1,
+    per_page: 50
+});
+```
+
+#### Count Memories
+```javascript
+await client.countMemories({
+    bot_id: 'bot-id',
+    user_uuid: 'user-uuid'
+});
+```
+
+#### Delete a Memory
+```javascript
+await client.deleteMemory({
+    bot_id: 'bot-id',
+    memory_id: 'mem-uuid'
+});
+```
+
+### Workflows
+
+#### Fetch Workflow Catalog
+```javascript
+await client.fetchWorkflowCatalog({ bot_id: 'bot-id' });
+```
+
+#### List Workflows
+```javascript
+await client.fetchWorkflows({ bot_id: 'bot-id' });
+```
+
+#### Get a Workflow
+```javascript
+await client.fetchWorkflow({ bot_id: 'bot-id', workflow_id: 'wf-id' });
+```
+
+#### Create a Workflow
+```javascript
+await client.createWorkflow({
+    bot_id: 'bot-id',
+    name: 'Lead Qualification',
+    trigger: 'webhook',
+    steps: [/* step objects */]
+});
+```
+
+#### Update a Workflow
+```javascript
+await client.updateWorkflow({
+    bot_id: 'bot-id',
+    workflow_id: 'wf-id',
+    enabled: true
+});
+```
+
+#### Delete a Workflow
+```javascript
+await client.deleteWorkflow({ bot_id: 'bot-id', workflow_id: 'wf-id' });
+```
+
+#### Run a Workflow
+```javascript
+await client.runWorkflow({ bot_id: 'bot-id', workflow_id: 'wf-id' });
+```
+
+#### Fetch Workflow Logs
+```javascript
+await client.fetchWorkflowLogs({ bot_id: 'bot-id' });
+```
+
+### Heartbeats
+
+#### Create / Update a Heartbeat
+```javascript
+await client.createHeartbeat({
+    bot_id: 'bot-id',
+    prompt: 'Check for new support tickets and summarize urgent ones',
+    cron_pattern: '0 9 * * 1-5',   // weekdays at 9am
+    enabled: true,
+    timezone: 'America/New_York',
+    credit_budget: 100,
+    max_consecutive_errors: 5
+});
+```
+
+#### Get a Heartbeat
+```javascript
+await client.fetchHeartbeat({ bot_id: 'bot-id', heartbeat_id: 'hb-id' });
+```
+
+#### List Heartbeats
+```javascript
+await client.fetchHeartbeats({ bot_id: 'bot-id' });
+```
+
+#### Enable / Disable
+```javascript
+await client.enableHeartbeat({ bot_id: 'bot-id', heartbeat_id: 'hb-id' });
+await client.disableHeartbeat({ bot_id: 'bot-id', heartbeat_id: 'hb-id' });
+```
+
+#### Trigger Manually
+```javascript
+await client.triggerHeartbeat({ bot_id: 'bot-id', heartbeat_id: 'hb-id' });
+```
+
+#### Delete a Heartbeat
+```javascript
+await client.deleteHeartbeat({ bot_id: 'bot-id', heartbeat_id: 'hb-id' });
+```
+
+#### Fetch Logs & Stats
+```javascript
+await client.fetchHeartbeatLogs({ bot_id: 'bot-id' });
+await client.fetchHeartbeatStats({ bot_id: 'bot-id' });
+```
+
+### Workspaces
+
+#### List Workspaces
+```javascript
+await client.fetchWorkspaces({ bot_id: 'bot-id' });
+```
+
+#### Create / Delete Workspace
+```javascript
+await client.createWorkspace({ bot_id: 'bot-id', name: 'My Workspace' });
+await client.deleteWorkspace({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid' });
+```
+
+#### File Operations
+```javascript
+// List files
+await client.fetchFiles({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid' });
+
+// Read a file
+await client.readFile({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid', file_uuid: 'file-uuid' });
+
+// Create a file
+await client.createFile({
+    bot_id: 'bot-id',
+    workspace_uuid: 'ws-uuid',
+    file_path: '/src/app.js',
+    content: 'console.log("hello");',
+    language: 'javascript'
+});
+
+// Update a file
+await client.updateFile({
+    bot_id: 'bot-id',
+    workspace_uuid: 'ws-uuid',
+    file_uuid: 'file-uuid',
+    content: '// updated content'
+});
+
+// Rename / move a file
+await client.renameFile({
+    bot_id: 'bot-id',
+    workspace_uuid: 'ws-uuid',
+    old_path: '/src/app.js',
+    new_path: '/src/main.js'
+});
+
+// Delete a file
+await client.deleteFile({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid', file_uuid: 'file-uuid' });
+
+// Download workspace as ZIP
+await client.downloadWorkspace({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid' });
+```
+
+#### Publishing
+```javascript
+await client.suggestSubdomain({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid' });
+await client.publishWorkspace({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid', subdomain: 'my-app' });
+await client.unpublishWorkspace({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid' });
+
+// Custom domain
+await client.addCustomDomain({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid', domain: 'app.example.com' });
+await client.removeCustomDomain({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid' });
+await client.refreshDomainStatus({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid' });
+await client.getDomainInfo({ bot_id: 'bot-id', workspace_uuid: 'ws-uuid' });
+```
+
+### Email Inbox
+
+#### Get Email Address
+```javascript
+await client.fetchEmailAddress({ bot_id: 'bot-id' });
+```
+
+#### Update Settings
+```javascript
+await client.updateEmailSettings({
+    bot_id: 'bot-id',
+    auto_reply: true,
+    signature: 'Best, Support Team'
+});
+```
+
+#### Stats, List, Read, Reply, Delete
+```javascript
+await client.fetchEmailStats({ bot_id: 'bot-id' });
+
+await client.fetchEmails({ bot_id: 'bot-id', page: 1, per_page: 20 });
+
+await client.fetchEmail({ bot_id: 'bot-id', email_id: 'email-uuid' });
+
+await client.replyToEmail({
+    bot_id: 'bot-id',
+    email_id: 'email-uuid',
+    content: 'Thanks for reaching out!'
+});
+
+await client.deleteEmail({ bot_id: 'bot-id', email_id: 'email-uuid' });
+```
+
+### CRM
+
+#### Contacts
+```javascript
+// List / search
+await client.fetchContacts({ bot_id: 'bot-id', page: 1, per_page: 20, status: 'lead' });
+await client.searchContacts({ bot_id: 'bot-id', query: 'jane', limit: 10 });
+await client.fetchContactStatuses({ bot_id: 'bot-id' });
+
+// CRUD
+await client.createContact({
+    bot_id: 'bot-id',
+    email: 'jane@example.com',
+    status: 'lead',
+    fields: { first_name: 'Jane', company: 'Acme' }
+});
+await client.fetchContact({ bot_id: 'bot-id', contact_id: 'con-id' });
+await client.updateContact({ bot_id: 'bot-id', contact_id: 'con-id', status: 'customer' });
+await client.deleteContact({ bot_id: 'bot-id', contact_id: 'con-id' });           // soft delete
+await client.deleteContact({ bot_id: 'bot-id', contact_id: 'con-id', permanent: true }); // hard delete
+
+// Export & notes
+await client.exportContacts({ bot_id: 'bot-id' });
+await client.addContactNote({ bot_id: 'bot-id', contact_id: 'con-id', content: 'Called.', type: 'call' });
+```
+
+#### Custom Fields
+```javascript
+await client.fetchCRMFields({ bot_id: 'bot-id' });
+await client.createCRMField({ bot_id: 'bot-id', label: 'Company Size', field_type: 'select', options: ['1-10', '11-50'] });
+await client.updateCRMField({ bot_id: 'bot-id', field_id: 'fld-id', label: 'Headcount' });
+await client.deleteCRMField({ bot_id: 'bot-id', field_id: 'fld-id' });
+```
+
+#### Setup & Templates
+```javascript
+await client.fetchCRMSetup({ bot_id: 'bot-id' });
+await client.fetchCRMTemplates({ bot_id: 'bot-id' });
+await client.applyCRMTemplate({ bot_id: 'bot-id', template_key: 'sales', name: 'Q3 Pipeline' });
+```
+
+#### Pipelines
+```javascript
+await client.fetchPipelines({ bot_id: 'bot-id' });
+await client.createPipeline({ bot_id: 'bot-id', name: 'Enterprise', default_currency: 'USD' });
+await client.updatePipeline({ bot_id: 'bot-id', pipeline_id: 'pipe-id', is_default: true });
+await client.deletePipeline({ bot_id: 'bot-id', pipeline_id: 'pipe-id' });
+await client.fetchPipelineBoard({ bot_id: 'bot-id', pipeline_id: 'pipe-id' });
+
+// Stages
+await client.createPipelineStage({ bot_id: 'bot-id', name: 'Proposal', pipeline_id: 'pipe-id' });
+await client.updatePipelineStage({ bot_id: 'bot-id', stage_id: 'stg-id', closed_status: 'won' });
+await client.deletePipelineStage({ bot_id: 'bot-id', stage_id: 'stg-id', move_deals_to_stage_id: 'stg-other' });
+```
+
+#### Deals
+```javascript
+await client.fetchDeals({ bot_id: 'bot-id', status: 'open', pipeline_id: 'pipe-id' });
+await client.createDeal({ bot_id: 'bot-id', title: 'Acme Corp — Pro', status: 'open' });
+await client.updateDeal({ bot_id: 'bot-id', deal_id: 'deal-id', status: 'won' });
+await client.deleteDeal({ bot_id: 'bot-id', deal_id: 'deal-id' });
+```
+
+#### Tasks
+```javascript
+await client.fetchTasks({ bot_id: 'bot-id', status: 'todo' });
+await client.createTask({ bot_id: 'bot-id', title: 'Follow up with Jane', priority: 'high' });
+await client.updateTask({ bot_id: 'bot-id', task_id: 'tsk-id', status: 'done' });
+await client.snoozeTask({ bot_id: 'bot-id', task_id: 'tsk-id' });
+await client.deleteTask({ bot_id: 'bot-id', task_id: 'tsk-id' });
+await client.fetchCRMReport({ bot_id: 'bot-id' });
+```
+
+### MCP Connectors
+
+#### Connector Catalog
+```javascript
+// List all available connectors
+await client.fetchConnectors();
+
+// Get connector details (auth requirements, tools)
+await client.fetchConnector('jamendo');
+```
+
+#### Deploy MCP Servers
+```javascript
+// From a pre-built connector
+await client.createMcpFromPredefined({
+    name: 'My Jamendo Server',
+    connectorName: 'jamendo',
+    credentials: { client_id: 'your_client_id' }
+});
+
+// From an OpenAPI spec
+await client.createMcpFromOpenApi({
+    name: 'My API Server',
+    openApiSpec: { /* OpenAPI 3.0 object */ },
+    credentials: { api_key: 'sk-xxx' }
+});
+
+// From a Postman collection
+await client.createMcpFromPostman({
+    name: 'My Postman Server',
+    postmanCollection: { /* Postman Collection v2.1 */ }
+});
+```
+
+#### Manage Servers
+```javascript
+await client.fetchMcpServers();
+await client.fetchMcpServer('server-uuid');
+await client.updateMcpServer({ id: 'server-uuid', name: 'Renamed' });
+await client.cloneMcpServer({ id: 'server-uuid', name: 'Clone' });
+await client.deleteMcpServer('server-uuid');
+await client.fetchMcpUsage('server-uuid');
+```
+
+#### Validate Specs
+```javascript
+await client.validateOpenApi({ spec: openApiObject });
+await client.validatePostman({ collection: postmanObject });
 ```
 
 ### Subscribers
